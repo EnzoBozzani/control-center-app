@@ -1,4 +1,4 @@
-<h1>Football App</h1>
+<h1>Notes App</h1>
 
 > Project Status: Development
 
@@ -15,12 +15,12 @@
 ## Project Description
 
 <p align="justify">
- Football app built with React Native, TypeScript and Expo.
+ Notes app built with React Native, TypeScript and Expo.
 </p>
 
 ## Features
 
-:heavy_check_mark: See information about football main leagues.
+:heavy_check_mark: Create and save your notes.
 
 ## Dependencies
 

@@ -26,10 +26,11 @@ export const SavedNotesScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            {notes.map((note) => (
+            {notes.map((note, index) => (
                 <Pressable
                     style={styles.noteBtn}
                     onPress={() => handlePress(note.title, note.noteContent)}
+                    key={index}
                 >
                     {note.title}
                 </Pressable>
@@ -42,14 +43,14 @@ export const SavedNotesScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#000'
+        backgroundColor: '#242424'
     },
     noteBtn: {
         width: '100%',
         justifyContent: 'center',
         borderBottomWidth: 1,
         borderBottomColor: '#ffffff',
-        color: '#fff',
+        color: '#036ffc',
         fontSize: 24,
         padding: 20,
     }

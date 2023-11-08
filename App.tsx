@@ -1,35 +1,66 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { SavedNotesScreen } from './screens/NotesScreen';
-import { NoteScreen } from './screens/Note';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import NotesNavigator from './screens/NotesNavigator';
+import { MaterialIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
+import { Alarm } from './screens/Alarm';
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
+      <Tab.Navigator
         screenOptions={{
+          tabBarStyle: {
+            backgroundColor: '#1b1b1b'
+          },
           headerStyle: {
             backgroundColor: '#1b1b1b'
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight: 'bold',
-          },
+          }
         }}
       >
-        <Stack.Screen
-          name='Notas'
-          component={SavedNotesScreen}
+        <Tab.Screen
+          name="Notas"
+          component={NotesNavigator}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ color, size }) => (
+              <MaterialIcons name="notes" color={color} size={size} />
+            ),
+          }}
         />
-        <Stack.Screen
-          name='Nota'
-          component={NoteScreen}
-          //@ts-ignore
-          options={({ route }) => ({ title: route.params.title })}
+        <Tab.Screen
+          name="Alarme"
+          component={Alarm}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="alarm" color={color} size={size} />
+            )
+          }}
         />
-      </Stack.Navigator>
+        <Tab.Screen
+          name='Calculadora'
+          component={Alarm}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="ios-calculator" size={size} color={color} />
+            )
+          }}
+        />
+        <Tab.Screen
+          name='Galeria de Fotos'
+          component={Alarm}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <FontAwesome name="photo" size={size} color={color} />
+            )
+          }}
+        />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }

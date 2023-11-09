@@ -1,22 +1,46 @@
-import { View, StyleSheet, Pressable, Text } from "react-native"
+import { View, StyleSheet, Pressable, Text, TextInput, ScrollView, Alert } from "react-native"
 import { colors, common } from "../styles";
-import notes from '../notes.json';
+import data from '../notes.json';
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+interface NoteType {
+    title: string;
+    noteContent: string;
+}
 
 export const SavedNotesScreen = ({ navigation }) => {
+    const [notes, setNotes] = useState<NoteType[]>(data);
+    const [newNote, setNewNote] = useState<NoteType>({ title: '', noteContent: '' });
 
-    //precisa ter um estado para as notas 
+    useEffect(() => {
+        const fetchNotes = async () => {
+            const res = await AsyncStorage.getItem('notes');
+            if (!res) await AsyncStorage.setItem('notes', JSON.stringify(data));
+            setNotes(JSON.parse(res));
+        };
+        fetchNotes();
+    }, []);
 
-    const handlePress = (title: string, noteContent: string) => {
+    const handleNotePress = (noteId: number) => {
         navigation.navigate('Nota', {
-            title,
-            noteContent
+            notes,
+            noteId
         });
+    };
+
+    const handleSubmit = () => {
+        if (newNote.title === '') return Alert.alert('Atenção', 'O título da nota não pode ser vazio', [{ text: 'OK' }]);
+        setNotes(prevState => {
+            return [...prevState, newNote];
+        });
+        setNewNote({ title: '', noteContent: '' });
     }
 
     return (
-        <View style={common.container}>
+        <ScrollView style={common.container}>
             <View style={styles.container}>
-                {notes.map((note, index) => {
+                {notes?.map((note, index) => {
                     if (index == 0) {
                         return (
                             <Pressable
@@ -30,7 +54,7 @@ export const SavedNotesScreen = ({ navigation }) => {
                                     borderBottomWidth: 1,
                                     borderBottomColor: colors.white
                                 }}
-                                onPress={() => handlePress(note.title, note.noteContent)}
+                                onPress={() => handleNotePress(index)}
                                 key={index}
                             >
                                 <Text style={styles.noteBtnText}>{note.title}</Text>
@@ -48,7 +72,7 @@ export const SavedNotesScreen = ({ navigation }) => {
                                     borderBottomRightRadius: 10,
                                     borderBottomLeftRadius: 10
                                 }}
-                                onPress={() => handlePress(note.title, note.noteContent)}
+                                onPress={() => handleNotePress(index)}
                                 key={index}
                             >
                                 <Text style={styles.noteBtnText}>{note.title}</Text>
@@ -58,7 +82,7 @@ export const SavedNotesScreen = ({ navigation }) => {
                     return (
                         <Pressable
                             style={styles.noteBtn}
-                            onPress={() => handlePress(note.title, note.noteContent)}
+                            onPress={() => handleNotePress(index)}
                             key={index}
                         >
                             <Text style={styles.noteBtnText}>{note.title}</Text>
@@ -66,7 +90,42 @@ export const SavedNotesScreen = ({ navigation }) => {
                     )
                 })}
             </View>
-        </View>
+            <View style={styles.form}>
+                <Text style={styles.formTitle}>
+                    Adicionar Nova Nota
+                </Text>
+                <View style={styles.formGroup}>
+                    <Text style={styles.formLabel}>
+                        Título:
+                    </Text>
+                    <TextInput
+                        style={styles.input}
+                        value={newNote.title}
+                        onChangeText={(newText) => setNewNote(prevState => ({ title: newText, noteContent: prevState.noteContent }))}
+                    />
+                </View>
+                <View style={styles.formGroup}>
+                    <Text style={styles.formLabel}>
+                        Conteúdo:
+                    </Text>
+                    <TextInput
+                        style={styles.input}
+                        multiline
+                        numberOfLines={10}
+                        value={newNote.noteContent}
+                        onChangeText={(newText) => setNewNote(prevState => ({ title: prevState.title, noteContent: newText }))}
+                    />
+                </View>
+                <Pressable
+                    style={styles.formBtn}
+                    onPress={handleSubmit}
+                >
+                    <Text style={styles.formBtnText}>
+                        Adicionar
+                    </Text>
+                </Pressable>
+            </View>
+        </ScrollView>
     )
 }
 
@@ -91,5 +150,47 @@ const styles = StyleSheet.create({
     noteBtnText: {
         color: colors.white,
         fontSize: 18,
+    },
+    form: {
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 30,
+        marginTop: 40
+    },
+    formTitle: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        color: colors.green
+    },
+    formGroup: {
+        width: '75%',
+        gap: 10,
+        justifyContent: 'center'
+    },
+    formLabel: {
+        color: colors.white,
+        fontWeight: 'bold'
+    },
+    input: {
+        width: '100%',
+        borderWidth: 1,
+        borderColor: colors.white,
+        padding: 10,
+        borderRadius: 10,
+        color: colors.white
+    },
+    formBtn: {
+        width: '75%',
+        backgroundColor: colors.green,
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    formBtnText: {
+        fontSize: 18,
+        paddingVertical: 5,
+        color: colors.dark,
+        fontWeight: 'bold'
     }
 })

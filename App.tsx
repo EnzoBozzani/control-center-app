@@ -4,12 +4,14 @@ import NotesNavigator from './screens/NotesNavigator';
 import { MaterialIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
 import { Alarm } from './screens/Alarm';
 import { colors } from './styles';
+import { StatusBar } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
+      <StatusBar barStyle='light-content' />
       <Tab.Navigator
         screenOptions={{
           tabBarStyle: {

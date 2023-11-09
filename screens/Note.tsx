@@ -1,8 +1,8 @@
-import { View, Text } from "react-native";
-import { common } from "../styles";
+import { View, Text, StyleSheet } from "react-native";
+import { common, colors } from "../styles";
 
 export const NoteScreen = ({ route }) => {
-    const { title, noteContent } = route.params;
+    const { notes, noteId } = route.params;
 
     //a parte que tem o texto precisa ser um TextInput enorme que tem um estado atrelado ao seu conteúdo 
     //(inicia com o noteContent), e precisa ter um botão de salvar no final da tela
@@ -10,11 +10,28 @@ export const NoteScreen = ({ route }) => {
 
     return (
         <View style={common.container}>
-            <Text>
-                {title}
-                {noteContent}
-            </Text>
+            <View style={styles.note}>
+                <Text style={styles.noteTitle}>
+                    {notes[noteId].title}
+                </Text>
+                <Text>
+                    {notes[noteId].noteContent}
+                </Text>
+            </View>
         </View>
     )
-
 }
+
+const styles = StyleSheet.create({
+    note: {
+        width: '95%',
+        marginHorizontal: '2.5%',
+        marginTop: 30,
+        gap: 20
+    },
+    noteTitle: {
+        fontSize: 24,
+        color: colors.green,
+        fontWeight: 'bold'
+    }
+})

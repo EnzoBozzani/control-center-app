@@ -1,8 +1,7 @@
 import { View, StyleSheet, Pressable, Text, TextInput, ScrollView, Alert } from "react-native"
 import { colors, common } from "../styles";
-import data from '../notes.json';
 import { useEffect, useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import NotesService from "../services/NotesService";
 
 interface NoteType {
     title: string;
@@ -10,16 +9,11 @@ interface NoteType {
 }
 
 export const SavedNotesScreen = ({ navigation }) => {
-    const [notes, setNotes] = useState<NoteType[]>(data);
+    const [notes, setNotes] = useState([]);
     const [newNote, setNewNote] = useState<NoteType>({ title: '', noteContent: '' });
 
     useEffect(() => {
-        const fetchNotes = async () => {
-            const res = await AsyncStorage.getItem('notes');
-            if (!res) await AsyncStorage.setItem('notes', JSON.stringify(data));
-            setNotes(JSON.parse(res));
-        };
-        fetchNotes();
+        NotesService.getNotes(setNotes);
     }, []);
 
     const handleNotePress = (noteId: number) => {
@@ -29,13 +23,12 @@ export const SavedNotesScreen = ({ navigation }) => {
         });
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (newNote.title === '') return Alert.alert('Atenção', 'O título da nota não pode ser vazio', [{ text: 'OK' }]);
-        setNotes(prevState => {
-            return [...prevState, newNote];
-        });
+        NotesService.writeNote(newNote.title, newNote.noteContent)
         setNewNote({ title: '', noteContent: '' });
     }
+
 
     return (
         <ScrollView style={common.container}>
@@ -156,7 +149,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         gap: 30,
-        marginTop: 40
+        marginVertical: 40
     },
     formTitle: {
         fontSize: 22,

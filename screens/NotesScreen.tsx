@@ -2,6 +2,7 @@ import { View, StyleSheet, Pressable, Text, TextInput, ScrollView, Alert } from 
 import { colors, common } from "../styles";
 import { useEffect, useState } from "react";
 import NotesService from "../services/NotesService";
+import { NotePressable } from "../components";
 
 interface NoteType {
     title: string;
@@ -32,56 +33,45 @@ export const SavedNotesScreen = ({ navigation }) => {
 
     return (
         <ScrollView style={common.container}>
-            <View style={styles.container}>
-                {notes?.map((note, index) => {
+            <View style={styles.notesContainer}>
+                {notes ? notes?.map((note, index) => {
                     if (index == 0) {
                         return (
-                            <Pressable
-                                style={{
-                                    width: '100%',
-                                    justifyContent: 'center',
-                                    padding: 20,
-                                    backgroundColor: colors.lightGray,
-                                    borderTopRightRadius: 10,
-                                    borderTopLeftRadius: 10,
-                                    borderBottomWidth: 1,
-                                    borderBottomColor: colors.white
-                                }}
-                                onPress={() => handleNotePress(index)}
+                            <NotePressable
+                                handleNotePress={handleNotePress}
+                                index={index}
+                                styleType='top'
+                                title={note.title}
                                 key={index}
-                            >
-                                <Text style={styles.noteBtnText}>{note.title}</Text>
-                            </Pressable>
+                            />
                         )
                     }
                     if (index == notes.length - 1) {
                         return (
-                            <Pressable
-                                style={{
-                                    width: '100%',
-                                    justifyContent: 'center',
-                                    padding: 20,
-                                    backgroundColor: colors.lightGray,
-                                    borderBottomRightRadius: 10,
-                                    borderBottomLeftRadius: 10
-                                }}
-                                onPress={() => handleNotePress(index)}
+                            <NotePressable
+                                handleNotePress={handleNotePress}
+                                index={index}
+                                styleType='bottom'
+                                title={note.title}
                                 key={index}
-                            >
-                                <Text style={styles.noteBtnText}>{note.title}</Text>
-                            </Pressable>
+                            />
                         )
                     }
                     return (
-                        <Pressable
-                            style={styles.noteBtn}
-                            onPress={() => handleNotePress(index)}
+                        <NotePressable
+                            handleNotePress={handleNotePress}
+                            index={index}
+                            styleType='normal'
+                            title={note.title}
                             key={index}
-                        >
-                            <Text style={styles.noteBtnText}>{note.title}</Text>
-                        </Pressable>
+                        />
                     )
-                })}
+                })
+                    :
+                    <Text style={styles.noNotesFound}>
+                        Nenhuma nota ainda!
+                    </Text>
+                }
             </View>
             <View style={styles.form}>
                 <Text style={styles.formTitle}>
@@ -124,25 +114,22 @@ export const SavedNotesScreen = ({ navigation }) => {
 
 
 const styles = StyleSheet.create({
-    container: {
+    notesContainer: {
         width: '95%',
         borderWidth: 1,
         borderRadius: 10,
         borderColor: colors.white,
         marginTop: 30,
-        marginHorizontal: '2.5%'
-    },
-    noteBtn: {
-        width: '100%',
-        justifyContent: 'center',
-        padding: 20,
+        marginHorizontal: '2.5%',
         backgroundColor: colors.lightGray,
-        borderBottomWidth: 1,
-        borderBottomColor: colors.white
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    noteBtnText: {
-        color: colors.white,
-        fontSize: 18,
+    noNotesFound: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        paddingVertical: 20,
+        color: colors.white
     },
     form: {
         width: '100%',

@@ -1,21 +1,10 @@
-import { View, StyleSheet, Pressable } from "react-native"
-
-const notes = [
-    {
-        title: 'Séries',
-        noteContent: 'Conteúdo 4fb3niu f4uinfu4n3fuib34 ui3fbnu34nfiu54bnf5ruibf f4uinefduenfdui34f ufin34fujn4iufn4iuf 3f4uinrnufriubn'
-    },
-    {
-        title: 'Filmes',
-        noteContent: 'Conteúdo 4fb3niu f4uinfu4n3fuib34 ui3fbnu34nfiu54bnf5ruibf f4uinefduenfdui34f ufin34fujn4iufn4iuf 3f4uinrnufriubn'
-    },
-    {
-        title: 'Jogos',
-        noteContent: 'Conteúdo 4fb3niu f4uinfu4n3fuib34 ui3fbnu34nfiu54bnf5ruibf f4uinefduenfdui34f ufin34fujn4iufn4iuf 3f4uinrnufriubn'
-    },
-]
+import { View, StyleSheet, Pressable, Text } from "react-native"
+import { colors, common } from "../styles";
+import notes from '../notes.json';
 
 export const SavedNotesScreen = ({ navigation }) => {
+
+    //precisa ter um estado para as notas 
 
     const handlePress = (title: string, noteContent: string) => {
         navigation.navigate('Nota', {
@@ -25,16 +14,58 @@ export const SavedNotesScreen = ({ navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
-            {notes.map((note, index) => (
-                <Pressable
-                    style={styles.noteBtn}
-                    onPress={() => handlePress(note.title, note.noteContent)}
-                    key={index}
-                >
-                    {note.title}
-                </Pressable>
-            ))}
+        <View style={common.container}>
+            <View style={styles.container}>
+                {notes.map((note, index) => {
+                    if (index == 0) {
+                        return (
+                            <Pressable
+                                style={{
+                                    width: '100%',
+                                    justifyContent: 'center',
+                                    padding: 20,
+                                    backgroundColor: colors.lightGray,
+                                    borderTopRightRadius: 10,
+                                    borderTopLeftRadius: 10,
+                                    borderBottomWidth: 1,
+                                    borderBottomColor: colors.white
+                                }}
+                                onPress={() => handlePress(note.title, note.noteContent)}
+                                key={index}
+                            >
+                                <Text style={styles.noteBtnText}>{note.title}</Text>
+                            </Pressable>
+                        )
+                    }
+                    if (index == notes.length - 1) {
+                        return (
+                            <Pressable
+                                style={{
+                                    width: '100%',
+                                    justifyContent: 'center',
+                                    padding: 20,
+                                    backgroundColor: colors.lightGray,
+                                    borderBottomRightRadius: 10,
+                                    borderBottomLeftRadius: 10
+                                }}
+                                onPress={() => handlePress(note.title, note.noteContent)}
+                                key={index}
+                            >
+                                <Text style={styles.noteBtnText}>{note.title}</Text>
+                            </Pressable>
+                        )
+                    }
+                    return (
+                        <Pressable
+                            style={styles.noteBtn}
+                            onPress={() => handlePress(note.title, note.noteContent)}
+                            key={index}
+                        >
+                            <Text style={styles.noteBtnText}>{note.title}</Text>
+                        </Pressable>
+                    )
+                })}
+            </View>
         </View>
     )
 }
@@ -42,16 +73,23 @@ export const SavedNotesScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#242424'
+        width: '95%',
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: colors.white,
+        marginTop: 30,
+        marginHorizontal: '2.5%'
     },
     noteBtn: {
         width: '100%',
         justifyContent: 'center',
-        borderBottomWidth: 1,
-        borderBottomColor: '#ffffff',
-        color: '#036ffc',
-        fontSize: 24,
         padding: 20,
+        backgroundColor: colors.lightGray,
+        borderBottomWidth: 1,
+        borderBottomColor: colors.white
+    },
+    noteBtnText: {
+        color: colors.white,
+        fontSize: 18,
     }
 })

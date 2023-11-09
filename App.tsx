@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import NotesNavigator from './screens/NotesNavigator';
 import { MaterialIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
 import { Alarm } from './screens/Alarm';
+import { colors } from './styles';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,15 +13,16 @@ export default function App() {
       <Tab.Navigator
         screenOptions={{
           tabBarStyle: {
-            backgroundColor: '#1b1b1b'
+            backgroundColor: colors.dark
           },
           headerStyle: {
-            backgroundColor: '#1b1b1b'
+            backgroundColor: colors.dark,
           },
-          headerTintColor: '#fff',
+          headerTintColor: colors.white,
           headerTitleStyle: {
             fontWeight: 'bold',
-          }
+            fontSize: 20
+          },
         }}
       >
         <Tab.Screen

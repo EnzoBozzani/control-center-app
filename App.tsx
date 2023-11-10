@@ -1,8 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import NotesNavigator from './screens/NotesNavigator';
+import { NotesNavigator, Alarm, CalculatorScreen } from './screens/';
 import { MaterialIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
-import { Alarm } from './screens/Alarm';
 import { colors } from './styles';
 import { StatusBar } from 'react-native';
 
@@ -48,7 +47,7 @@ export default function App() {
         />
         <Tab.Screen
           name='Calculadora'
-          component={Alarm}
+          component={CalculatorScreen}
           options={{
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="ios-calculator" size={size} color={color} />

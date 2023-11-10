@@ -1,11 +1,11 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { colors } from '../styles';
 import { SavedNotesScreen } from './NotesScreen';
 import { NoteScreen } from './Note';
-import { colors } from '../styles';
 
 const NotesStack = createNativeStackNavigator();
 
-export default function () {
+export const NotesNavigator: React.FC = () => {
     return (
         <NotesStack.Navigator
             screenOptions={

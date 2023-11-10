@@ -7,6 +7,21 @@ interface Props {
 }
 
 export const CalcButton: React.FC<Props> = ({ value, setExp }: Props) => {
+
+    let val: string;
+
+    switch (value) {
+        case '*':
+            val = 'x';
+            break;
+        case '/':
+            val = '÷';
+            break;
+        default:
+            val = value;
+            break;
+    }
+
     if (value === 'C') {
         return (
             <Pressable
@@ -45,7 +60,7 @@ export const CalcButton: React.FC<Props> = ({ value, setExp }: Props) => {
             onPress={() => setExp((current: any) => `${current}${value}`)}
         >
             <Text style={styles.buttonText}>
-                {value}
+                {val}
             </Text>
         </Pressable>
     )

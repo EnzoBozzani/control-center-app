@@ -73,26 +73,26 @@ export const SavedNotesScreen = ({ navigation }) => {
                     </Text>
                 }
             </View>
-            <View style={styles.form}>
-                <Text style={styles.formTitle}>
+            <View style={common.form}>
+                <Text style={common.formTitle}>
                     Adicionar Nova Nota
                 </Text>
-                <View style={styles.formGroup}>
-                    <Text style={styles.formLabel}>
+                <View style={common.formGroup}>
+                    <Text style={common.formLabel}>
                         Título:
                     </Text>
                     <TextInput
-                        style={styles.input}
+                        style={common.input}
                         value={newNote.title}
                         onChangeText={(newText) => setNewNote(prevState => ({ title: newText, noteContent: prevState.noteContent }))}
                     />
                 </View>
-                <View style={styles.formGroup}>
-                    <Text style={styles.formLabel}>
+                <View style={common.formGroup}>
+                    <Text style={common.formLabel}>
                         Conteúdo:
                     </Text>
                     <TextInput
-                        style={styles.input}
+                        style={common.input}
                         multiline
                         numberOfLines={10}
                         value={newNote.noteContent}
@@ -100,10 +100,10 @@ export const SavedNotesScreen = ({ navigation }) => {
                     />
                 </View>
                 <Pressable
-                    style={styles.formBtn}
+                    style={common.formBtn}
                     onPress={handleSubmit}
                 >
-                    <Text style={styles.formBtnText}>
+                    <Text style={common.formBtnText}>
                         Adicionar
                     </Text>
                 </Pressable>
@@ -130,47 +130,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         paddingVertical: 20,
         color: colors.white
-    },
-    form: {
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: 30,
-        marginVertical: 40
-    },
-    formTitle: {
-        fontSize: 22,
-        fontWeight: 'bold',
-        color: colors.green
-    },
-    formGroup: {
-        width: '75%',
-        gap: 10,
-        justifyContent: 'center'
-    },
-    formLabel: {
-        color: colors.white,
-        fontWeight: 'bold'
-    },
-    input: {
-        width: '100%',
-        borderWidth: 1,
-        borderColor: colors.white,
-        padding: 10,
-        borderRadius: 10,
-        color: colors.white
-    },
-    formBtn: {
-        width: '75%',
-        backgroundColor: colors.green,
-        borderRadius: 5,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    formBtnText: {
-        fontSize: 18,
-        paddingVertical: 5,
-        color: colors.dark,
-        fontWeight: 'bold'
     }
 })

@@ -1,4 +1,3 @@
-import { SetStateAction } from "react";
 import database from "../config/config";
 import { ref, set, onValue, remove } from 'firebase/database';
 

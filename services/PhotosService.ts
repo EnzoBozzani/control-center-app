@@ -22,7 +22,7 @@ export default class PhotosService {
         })
     }
 
-    static deletePhoto(url: string) {
-        remove(ref(database, `photos/${url}`));
+    static deletePhoto(id: string) {
+        remove(ref(database, `photos/${id}`));
     }
 }

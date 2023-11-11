@@ -4,6 +4,7 @@ import { NotesNavigator, Alarm, CalculatorScreen, PhotosGalleryScreen } from './
 import { MaterialIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
 import { colors } from './styles';
 import { StatusBar } from 'react-native';
+import { PhotosNavigator } from './screens/PhotosNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -56,8 +57,9 @@ export default function App() {
         />
         <Tab.Screen
           name='Galeria de Fotos'
-          component={PhotosGalleryScreen}
+          component={PhotosNavigator}
           options={{
+            headerShown: false,
             tabBarIcon: ({ color, size }) => (
               <FontAwesome name="photo" size={size} color={color} />
             )

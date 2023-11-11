@@ -4,7 +4,11 @@ import { useEffect, useState } from "react"
 import PhotosService from "../services/PhotosService";
 import { Photo } from "../components";
 
-export const PhotosGalleryScreen: React.FC = () => {
+interface Props {
+    navigation: any;
+}
+
+export const PhotosGalleryScreen: React.FC<Props> = ({ navigation }) => {
     const [photoUrl, setPhotoUrl] = useState('');
     const [photos, setPhotos] = useState<any[]>([]);
 
@@ -43,7 +47,7 @@ export const PhotosGalleryScreen: React.FC = () => {
             <View style={{ width: 330, margin: 30, flexDirection: 'row', flexWrap: 'wrap' }}>
                 {
                     photos ?
-                        photos.map((photo) => (<Photo url={photo.photoUrl} key={photo.id} id={photo.id} />))
+                        photos.map((photo) => (<Photo url={photo.photoUrl} key={photo.id} id={photo.id} navigation={navigation} />))
                         :
                         <Text style={{
                             fontSize: 20,

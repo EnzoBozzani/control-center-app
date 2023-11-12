@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NotesNavigator, Alarm, CalculatorScreen, PhotosGalleryScreen } from './screens/';
+import { NotesNavigator, Alarm, CalculatorScreen, } from './screens/';
 import { MaterialIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
 import { colors } from './styles';
 import { StatusBar } from 'react-native';
@@ -38,7 +38,7 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Alarme"
+          name="Timer"
           component={Alarm}
           options={{
             tabBarIcon: ({ color, size }) => (

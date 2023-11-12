@@ -1,6 +1,6 @@
-<h1>Notes App</h1>
+<h1>Control Center App</h1>
 
-> Project Status: Development
+> Project Status: Finished (November 12, 2023)
 
 ### Topics
 
@@ -15,12 +15,12 @@
 ## Project Description
 
 <p align="justify">
- Notes app built with React Native, TypeScript and Expo.
+ Control Center (Notes, Timer, Calculator and Photos Gallery) app built with React Native, TypeScript, Expo and Firebase for storing data. 
 </p>
 
 ## Features
 
-:heavy_check_mark: Create and save your notes.
+:heavy_check_mark: Create, see and delete notes, set timer, use calculator and save, see and delete images.
 
 ## Dependencies
 
@@ -37,7 +37,7 @@
 Clone project:
 
 ```
-git clone https://github.com/EnzoBozzani/football-app
+git clone https://github.com/EnzoBozzani/control-center-app
 ```
 
 Install dependencies:

@@ -11,9 +11,13 @@ export const Alarm: React.FC = () => {
     const [sound, setSound] = useState<any>();
 
     const handleSetTimer = () => {
+        const time = (selectedSecond * 1000) + (selectedMinute * 1000 * 60) + (selectedHour * 1000 * 3600);
+        setSelectedHour(0);
+        setSelectedMinute(0);
+        setSelectedSecond(0);
         setTimeout(() => {
             playSound();
-        }, (selectedSecond * 1000) + (selectedMinute * 1000 * 60) + (selectedHour * 1000 * 3600))
+        }, time)
     }
 
     async function playSound() {
@@ -33,43 +37,44 @@ export const Alarm: React.FC = () => {
 
     return (
         <View style={common.container}>
-            <TimerInput
-                len={24}
-                selected={selectedHour}
-                setSelected={setSelectedHour}
-            />
-            <TimerInput
-                len={60}
-                selected={selectedMinute}
-                setSelected={setSelectedMinute}
-            />
-            <TimerInput
-                len={60}
-                selected={selectedSecond}
-                setSelected={setSelectedSecond}
-            />
-            <Pressable
-                onPress={handleSetTimer}
-            >
-                <Text style={{ color: '#fff' }}>
-                    ALARME
-                </Text>
-            </Pressable>
+            <View style={styles.form}>
+                <TimerInput
+                    label="Horas:"
+                    len={24}
+                    selected={selectedHour}
+                    setSelected={setSelectedHour}
+                />
+                <TimerInput
+                    label="Minutos:"
+                    len={60}
+                    selected={selectedMinute}
+                    setSelected={setSelectedMinute}
+                />
+                <TimerInput
+                    label="Segundos:"
+                    len={60}
+                    selected={selectedSecond}
+                    setSelected={setSelectedSecond}
+                />
+                <Pressable
+                    onPress={handleSetTimer}
+                    style={common.formBtn}
+                >
+                    <Text style={common.formBtnText}>
+                        Setar Timer
+                    </Text>
+                </Pressable>
+            </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    input: {
-        borderRadius: 5000,
-        paddingVertical: 10,
-        paddingLeft: 5,
-        borderWidth: 1,
-        borderColor: colors.white,
-        width: 30,
-        color: colors.white
-    },
-    label: {
-        color: colors.white
+    form: {
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 40,
+        marginTop: 50
     }
 })

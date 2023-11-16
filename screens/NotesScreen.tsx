@@ -92,7 +92,7 @@ export const SavedNotesScreen = ({ navigation }) => {
                         Conteúdo:
                     </Text>
                     <TextInput
-                        style={common.input}
+                        style={styles.contentInput}
                         multiline
                         numberOfLines={10}
                         value={newNote.noteContent}
@@ -124,6 +124,15 @@ const styles = StyleSheet.create({
         backgroundColor: colors.lightGray,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    contentInput: {
+        width: '100%',
+        borderWidth: 1,
+        borderColor: colors.white,
+        padding: 10,
+        borderRadius: 10,
+        color: colors.white,
+        height: 200
     },
     noNotesFound: {
         fontSize: 20,
